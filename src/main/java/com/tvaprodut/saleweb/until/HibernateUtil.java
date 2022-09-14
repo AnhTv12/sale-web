@@ -38,6 +38,11 @@ public class HibernateUtil {
                 configuration.addAnnotatedClass(ProductLines.class);
                 configuration.addAnnotatedClass(Cart.class);
                 configuration.addAnnotatedClass(CartItem.class);
+                configuration.addAnnotatedClass(OrderDetail.class);
+                configuration.addAnnotatedClass(Order.class);
+                configuration.addAnnotatedClass(Employees.class);
+                configuration.addAnnotatedClass(Payment.class);
+                configuration.addAnnotatedClass(Office.class);
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();
 

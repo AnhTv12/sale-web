@@ -1,12 +1,15 @@
 package com.tvaprodut.saleweb.model;
 
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 
-import javax.persistence.*;
+
 
 @Entity
 @Table(name = "cart")
 @Builder
+@AllArgsConstructor
 public class Cart {
 
     @Id

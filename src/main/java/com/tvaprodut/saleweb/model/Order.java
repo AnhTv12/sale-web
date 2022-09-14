@@ -1,14 +1,9 @@
 package com.tvaprodut.saleweb.model;
 
 import com.tvaprodut.saleweb.constants.Status;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
@@ -34,6 +29,7 @@ public class Order {
     private LocalDate shippedDate;
 
     @Column(name="status")
+    @Enumerated(EnumType.STRING)
     private Status status;
 
     @Column(name="comments")

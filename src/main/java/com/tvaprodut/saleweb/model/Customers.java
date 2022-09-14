@@ -1,16 +1,23 @@
 package com.tvaprodut.saleweb.model;
 
 
-import lombok.Builder;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.*;
+import org.hibernate.Hibernate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import java.util.Objects;
 
 @Entity
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Table(name = "customers")
-@Builder
+//@Builder
+@AllArgsConstructor
 public class Customers {
 
     @Id
@@ -149,5 +156,11 @@ public class Customers {
                 ", postalCode='" + postalCode + '\'' +
                 ", country='" + country + '\'' +
                 '}';
+    }
+
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
     }
 }
