@@ -1,9 +1,11 @@
 package com.tvaprodut.saleweb.model;
 
-import com.tvaprodut.saleweb.constants.Status;
-import jakarta.persistence.*;
+
+
 import lombok.*;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
@@ -13,7 +15,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @Table(name = "payments")
-public class Payment {
+public class Payment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "customerNumber", nullable = false, unique = true, length = 11)

@@ -2,23 +2,15 @@ package com.tvaprodut.saleweb.handle;
 
 import com.tvaprodut.saleweb.dao.CustomerDao;
 import com.tvaprodut.saleweb.model.Customers;
+
 import com.tvaprodut.saleweb.model.Response;
-import com.tvaprodut.saleweb.until.HibernateUtil;
-import jakarta.persistence.NoResultException;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.query.criteria.HibernateCriteriaBuilder;
-import org.hibernate.query.criteria.JpaCriteriaQuery;
-import org.hibernate.query.criteria.JpaRoot;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 import static javax.security.auth.callback.ConfirmationCallback.OK;
 
@@ -28,35 +20,46 @@ import static javax.security.auth.callback.ConfirmationCallback.OK;
 public class CustomerController {
 
     @GetMapping("/list-customers")
-    public List<Customers> getCustomerList() {
-
-        CustomerDao customerDao = CustomerDao.getCustomerDao();
-        List<Customers> customers = new ArrayList<>();
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        HibernateCriteriaBuilder builder = session.getCriteriaBuilder();
-        JpaCriteriaQuery<Customers> criteriaQuery = builder.createQuery(Customers.class);
-        JpaRoot<Customers> root = criteriaQuery.from(Customers.class);
-        criteriaQuery.select(root);
-        try {
-            customers = session.createQuery(criteriaQuery).getResultList();
-        } catch (NoResultException exception) {
-            exception.printStackTrace();
-        }
-        return customers;
+    public ResponseEntity<Response> getCustomerList() {
+        CustomerDao customerDao = new CustomerDao();
+        List<Customers> customers = customerDao.getCustomersList();
+        return ResponseEntity.ok(
+                Response.builder()
+                        .time(LocalDateTime.now())
+                        .statusCode(OK)
+                        .message("Success")
+                        .reason("")
+                        .data(Map.of("customers",customers))
+                        .build()
+        );
     }
+
+    @PostMapping("/add-customer")
+    public ResponseEntity<Response> addCustomer(@RequestBody Customers customer) {
+        CustomerDao customerDao = new CustomerDao();
+        return ResponseEntity.ok(
+                Response.builder()
+                        .time(LocalDateTime.now())
+                        .statusCode(OK)
+                        .message("Success")
+                        .reason("")
+                        .data(Map.of("customer",customerDao.addCustomer(customer)))
+                        .build()
+        );
+    }
+
+    @GetMapping("/ID={customerID}")
+    public ResponseEntity<Response> findCustomer(@PathVariable("customerID") int customerID) {
+        CustomerDao customerDao = new CustomerDao();
+        return ResponseEntity.ok(
+                Response.builder()
+                        .time(LocalDateTime.now())
+                        .statusCode(OK)
+                        .message("Success")
+                        .reason("")
+                        .data(Map.of("customers",customerDao.findCustomerByID(customerID)))
+                        .build()
+        );
+    }
+
 }
-//        return ResponseEntity.ok(
-//                Response.builder()
-//                        .time(LocalDateTime.now())
-//                        .statusCode(OK)
-//                        .message("Success")
-//                        .reason("")
-//                        .data(Map.of("customers",customers))
-//                        .build()
-//        );
-//        return customers;
-//    }
-//
-//
-//
-//}

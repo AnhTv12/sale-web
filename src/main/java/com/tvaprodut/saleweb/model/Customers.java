@@ -1,57 +1,80 @@
 package com.tvaprodut.saleweb.model;
 
+import javax.persistence.*;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.*;
-import org.hibernate.Hibernate;
 
-import java.util.Objects;
+import java.io.Serializable;
 
-@Entity
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
 @Table(name = "customers")
-//@Builder
+@Entity
+@ToString
 @AllArgsConstructor
-public class Customers {
+public class Customers{
 
+    public Customers() {
+
+    }
     @Id
-    @Column(name="customerNumber", nullable=false, unique=true, length=11)
+    @Column(name = "customerNumber", nullable = false, unique = true, length = 11)
     private int customerNumber;
-    @Column(name="customerName")
+    @Column(name = "customerName")
     private String customerName;
 
-    @Column(name="contactFirstName")
+    @Column(name = "contactFirstName")
     private String contactFirstName;
 
-    @Column(name="contactLastName")
+    @Column(name = "contactLastName")
     private String contactLastName;
 
-    @Column(name="phone")
+    @Column(name = "phone")
     private String phone;
 
-    @Column(name="addressLine1")
+    @Column(name = "addressLine1")
     private String addressLine1;
 
-    @Column(name="addressLine2")
+    @Column(name = "addressLine2")
     private String addressLine2;
 
-    @Column(name="city")
+    @Column(name = "city")
     private String city;
 
-    @Column(name="state")
+    @Column(name = "state")
     private String state;
 
-    @Column(name="postalCode")
+    @Column(name = "postalCode")
     private String postalCode;
 
-    @Column(name="country")
+    @Column(name = "country")
     private String country;
+
+    @Column(name = "salesRepEmployeeNumber")
+    private Integer salesRepEmployeeNumber;
+
+    @Column(name = "creditLimit")
+    private Integer creditLimit;
+
+    @Column(name = "ID")
+    private int ID;
+
+    public Customers(int customerNumber, String customerName, String contactFirstName, String contactLastName,
+                     String phone, String addressLine1, String addressLine2, String city, String state, String postalCode,
+                     String country, int salesRepEmployeeNumber, int creditLimit, int ID) {
+        this.customerNumber = customerNumber;
+        this.customerName = customerName;
+        this.contactFirstName = contactFirstName;
+        this.contactLastName = contactLastName;
+        this.phone = phone;
+        this.addressLine1 = addressLine1;
+        this.addressLine2 = addressLine2;
+        this.city = city;
+        this.state = state;
+        this.postalCode = postalCode;
+        this.country = country;
+        this.salesRepEmployeeNumber = salesRepEmployeeNumber;
+        this.creditLimit = creditLimit;
+        this.ID = ID;
+    }
 
     public int getCustomerNumber() {
         return customerNumber;
@@ -141,26 +164,27 @@ public class Customers {
         this.country = country;
     }
 
-    @Override
-    public String toString() {
-        return "Customers{" +
-                "customerNumber=" + customerNumber +
-                ", customerName='" + customerName + '\'' +
-                ", contactFirstName='" + contactFirstName + '\'' +
-                ", contactLastName='" + contactLastName + '\'' +
-                ", phone='" + phone + '\'' +
-                ", addressLine1='" + addressLine1 + '\'' +
-                ", addressLine2='" + addressLine2 + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", country='" + country + '\'' +
-                '}';
+    public Integer getSalesRepEmployeeNumber() {
+        return salesRepEmployeeNumber;
     }
 
+    public void setSalesRepEmployeeNumber(Integer salesRepEmployeeNumber) {
+        this.salesRepEmployeeNumber = salesRepEmployeeNumber;
+    }
 
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
+    public Integer getCreditLimit() {
+        return creditLimit;
+    }
+
+    public void setCreditLimit(Integer creditLimit) {
+        this.creditLimit = creditLimit;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 }

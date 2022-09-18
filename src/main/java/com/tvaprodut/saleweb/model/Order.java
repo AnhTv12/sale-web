@@ -1,7 +1,7 @@
 package com.tvaprodut.saleweb.model;
 
 import com.tvaprodut.saleweb.constants.Status;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
