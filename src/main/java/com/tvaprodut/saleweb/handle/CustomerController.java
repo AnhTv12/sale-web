@@ -62,4 +62,17 @@ public class CustomerController {
         );
     }
 
+    @GetMapping("/delete/ID={customerID}")
+    public ResponseEntity<Response> deleteCustomer(@PathVariable("customerID") int customerID) {
+        CustomerDao customerDao = new CustomerDao();
+        return ResponseEntity.ok(
+                Response.builder()
+                        .time(LocalDateTime.now())
+                        .statusCode(OK)
+                        .message("Success")
+                        .reason("")
+                        .data(Map.of("response",customerDao.deleteCustomer(customerID)))
+                        .build()
+        );
+    }
 }

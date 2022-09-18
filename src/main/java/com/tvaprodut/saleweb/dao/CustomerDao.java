@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.SecondaryTable;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.persistence.metamodel.EntityType;
@@ -58,7 +59,7 @@ public class CustomerDao{
     public Customers addCustomer(Customers customer) {
         Transaction transaction = null;
         try(Session session = sessionFactory.openSession()) {
-            transaction.begin();
+            transaction = session.beginTransaction();
             session.save(customer);
             transaction.commit();
             session.close();
@@ -96,5 +97,26 @@ public class CustomerDao{
         }
         return customer;
     }
+
+    public String deleteCustomer(int customerNumber) {
+        Transaction transaction = null;
+        try(Session session = sessionFactory.openSession()) {
+            transaction = session.beginTransaction();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+            CriteriaDelete<Customers> criteriaQuery = builder.createCriteriaDelete(Customers.class);
+            Root<Customers> root = criteriaQuery.from(Customers.class);
+            criteriaQuery.where(builder.equal(root.get("customerNumber"),customerNumber));
+            session.createQuery(criteriaQuery).executeUpdate();
+            transaction.commit();
+            session.close();
+        }catch (Exception e) {
+            if (transaction == null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+        return "delete customter having Customer's Number: "+customerNumber ;
+    }
+
 }
 
