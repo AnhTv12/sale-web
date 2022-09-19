@@ -1,6 +1,6 @@
 package com.tvaprodut.saleweb;
 
-import com.tvaprodut.saleweb.dao.CustomerDao;
+import com.tvaprodut.saleweb.service.CustomerService;
 import com.tvaprodut.saleweb.model.Customers;
 import com.tvaprodut.saleweb.until.HibernateUtil;
 import org.hibernate.Session;
@@ -15,8 +15,8 @@ public class Test implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        CustomerDao customerDao = new CustomerDao();
-        customerDao.getCustomersList().forEach(System.out::println);
+        CustomerService customerService = new CustomerService();
+        customerService.getCustomersList().forEach(System.out::println);
         EntityType<Customers> entityType;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             CriteriaBuilder builder = session.getCriteriaBuilder();

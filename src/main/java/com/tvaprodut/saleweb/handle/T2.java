@@ -1,22 +1,13 @@
 package com.tvaprodut.saleweb.handle;
 
-import com.tvaprodut.saleweb.dao.CustomerDao;
+import com.tvaprodut.saleweb.service.CustomerService;
 import com.tvaprodut.saleweb.model.Customers;
-import com.tvaprodut.saleweb.until.HibernateUtil;
-import org.hibernate.Session;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
-import java.util.Set;
-
 
 
 public class T2 {
     public static void main(String[] args) {
         Customers customer = new Customers();
-        customer = new CustomerDao().findCustomerByID(112);
+        customer = new CustomerService().findCustomerByID(112);
         System.out.printf(customer.toString() + "\n");
         System.out.print(customer instanceof Customers);
 //        try(Session session = HibernateUtil.getSessionFactory().openSession()) {

@@ -1,6 +1,6 @@
 package com.tvaprodut.saleweb.handle;
 
-import com.tvaprodut.saleweb.dao.CustomerDao;
+import com.tvaprodut.saleweb.service.CustomerService;
 import com.tvaprodut.saleweb.model.Customers;
 
 import com.tvaprodut.saleweb.model.Response;
@@ -21,8 +21,8 @@ public class CustomerController {
 
     @GetMapping("/list-customers")
     public ResponseEntity<Response> getCustomerList() {
-        CustomerDao customerDao = new CustomerDao();
-        List<Customers> customers = customerDao.getCustomersList();
+        CustomerService customerService = new CustomerService();
+        List<Customers> customers = customerService.getCustomersList();
         return ResponseEntity.ok(
                 Response.builder()
                         .time(LocalDateTime.now())
@@ -36,42 +36,42 @@ public class CustomerController {
 
     @PostMapping("/add-customer")
     public ResponseEntity<Response> addCustomer(@RequestBody Customers customer) {
-        CustomerDao customerDao = new CustomerDao();
+        CustomerService customerService = new CustomerService();
         return ResponseEntity.ok(
                 Response.builder()
                         .time(LocalDateTime.now())
                         .statusCode(OK)
                         .message("Success")
                         .reason("")
-                        .data(Map.of("customer",customerDao.addCustomer(customer)))
+                        .data(Map.of("customer", customerService.addCustomer(customer)))
                         .build()
         );
     }
 
     @GetMapping("/ID={customerID}")
     public ResponseEntity<Response> findCustomer(@PathVariable("customerID") int customerID) {
-        CustomerDao customerDao = new CustomerDao();
+        CustomerService customerService = new CustomerService();
         return ResponseEntity.ok(
                 Response.builder()
                         .time(LocalDateTime.now())
                         .statusCode(OK)
                         .message("Success")
                         .reason("")
-                        .data(Map.of("customers",customerDao.findCustomerByID(customerID)))
+                        .data(Map.of("customers", customerService.findCustomerByID(customerID)))
                         .build()
         );
     }
 
     @GetMapping("/delete/ID={customerID}")
     public ResponseEntity<Response> deleteCustomer(@PathVariable("customerID") int customerID) {
-        CustomerDao customerDao = new CustomerDao();
+        CustomerService customerService = new CustomerService();
         return ResponseEntity.ok(
                 Response.builder()
                         .time(LocalDateTime.now())
                         .statusCode(OK)
                         .message("Success")
                         .reason("")
-                        .data(Map.of("response",customerDao.deleteCustomer(customerID)))
+                        .data(Map.of("response", customerService.deleteCustomer(customerID)))
                         .build()
         );
     }
