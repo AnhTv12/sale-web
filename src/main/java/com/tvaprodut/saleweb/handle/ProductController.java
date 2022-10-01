@@ -1,9 +1,7 @@
 package com.tvaprodut.saleweb.handle;
 
-import com.tvaprodut.saleweb.model.Customers;
 import com.tvaprodut.saleweb.model.Employees;
 import com.tvaprodut.saleweb.model.Response;
-import com.tvaprodut.saleweb.service.CustomerService;
 import com.tvaprodut.saleweb.service.EmployeesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,19 +14,19 @@ import java.util.Map;
 import static javax.security.auth.callback.ConfirmationCallback.OK;
 
 @RestController
-@RequestMapping("employee")
+@RequestMapping("product")
 @CrossOrigin
-public class EmployeeController {
+public class ProductController {
 
     @Autowired
-    public EmployeeController(EmployeesService employeesService) {
+    public ProductController(EmployeesService employeesService) {
         this.employeesService = employeesService;
     }
 
     private EmployeesService employeesService;
 
-    @GetMapping("/list-employee")
-    public ResponseEntity<Response> getCustomerList() {
+    @GetMapping("/list-product")
+    public ResponseEntity<Response> getProductList() {
         List<Employees> employees = employeesService.getEmployeesList();
         return ResponseEntity.ok(
                 Response.builder()
